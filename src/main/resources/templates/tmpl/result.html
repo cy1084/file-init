@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+result: <div th:text="${result}" th:if="${calc==null}"> <!--param으로-->
+</div><br>
+calcResult: <div th:text="${calc.result}" th:if="${calc!=null}"><!--ㅡmodel로-->
+</div>
+</body>
+</html>

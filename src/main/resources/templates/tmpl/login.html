@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<input type="text" id="id"><br>
+	<input type="password" id="pwd"><br>
+	<button onclick="login('JSON')">JSON LOGIN</button>
+	<button onclick="login('PARAM')">PARAM LOGIN</button>
+
+	<script>
+		function login(type) {
+			const id = document.querySelector('#id').value;
+			const pwd = document.querySelector('#pwd').value;
+			let param=new FormData(); //param
+			param.append('id',id);
+			param.append('pwd',pwd);
+			
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', '/req/post');
+			if(type==='JSON'){ //json
+				param={
+					id:id,
+					pwd:pwd
+				}
+				param=JSON.stringify(param);
+				xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+			}
+			
+			xhr.upload.onprogress=function(data){
+				if(data.lengthComputable){
+					let result= data.loaded/data.title*100;
+					result=Math.floor(result);
+					document.querySelector('#prog').value=result;
+				}
+			}
+			
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === xhr.DONE) {
+					if (xhr.status === 200) {
+						console.log(xhr.response);
+					}
+				}
+			}
+			xhr.send();
+
+		}
+		
+			
+		
+	</script>
+</body>
+
+</html>

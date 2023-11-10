@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form>
+	<input type="text" name="num1">
+	<input type="text" name="num2">
+	<button>GetParam</button>	 <!--param으로-->
+	<button type="button" onclick="submit2('/add/model')">GetModel</button>	 <!--vo model로-->
+	
+	<button type="button" onclick="get('/add/param')">getAjax</button>
+	<!--화면을 이동하려면 getparam과 getmodel 방식으로, 화면은 고정된 채 값만 가져오려면 getajax 방식으로-->
+	
+	
+</form>
+<script>
+	function submit2(url){
+		document.querySelector('form').action=url;
+		document.querySelector('form').submit();
+	}
+	function get(url){
+		const xhr=new XMLHttpRequest();
+		const num1=document.querySelector('[name=num1]').value;
+		const num2=document.querySelector('[name=num2]').value;
+		xhr.open('GET',url+`?num1=${num1}&?num2=${num2}`);
+		
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState===xhr.DONE){
+				if(xhr.status===200){
+					console.log(xhr.response);
+				}
+			}
+		}
+		xhr.send();
+		
+	}
+</script>
+</body>
+</html>
